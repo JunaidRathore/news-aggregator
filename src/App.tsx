@@ -44,7 +44,6 @@ const router = createBrowserRouter([
 
 const App = () => {
   const { darkMode } = useDarkMode();
-
   return (
     <QueryClientProvider client={queryClient}>
       <ThemeProvider defaultTheme={darkMode ? "dark" : "light"}>

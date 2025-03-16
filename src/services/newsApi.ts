@@ -22,17 +22,17 @@ const mapNewsApiArticle = (article: NewsAPIArticle): Article => {
 
 // Get top headlines
 export const getTopHeadlines = async (params: ArticleParams): Promise<ArticleResponse> => {
-    const { sources, categories, q, page = 1, pageSize = 20, sortBy = 'publishedAt' } = params;
+    const { sources, categories, q = '', page = 1, pageSize = 20, sortBy = 'publishedAt' } = params;
 
     // Construct query parameters
     const queryParams: Record<string, string | number> = {
         page,
         pageSize,
-        sortBy
+        sortBy,
+        q
     };
 
     // Add optional parameters if provided
-    if (q) queryParams.q = q;
     if (sources?.length) queryParams.sources = sources.join(',');
     if (categories?.length && categories[0] !== 'all') queryParams.category = categories[0]; // NewsAPI only supports one category at a time
 
@@ -47,17 +47,17 @@ export const getTopHeadlines = async (params: ArticleParams): Promise<ArticleRes
 
 // Search for articles
 export const searchArticles = async (params: ArticleParams): Promise<ArticleResponse> => {
-    const { q, sources, from, to, page = 1, pageSize = 20, sortBy = 'publishedAt' } = params;
+    const { q=`${''}`, sources, from, to, page = 1, pageSize = 20, sortBy = 'publishedAt' } = params;
 
     // Construct query parameters
     const queryParams: Record<string, string | number> = {
         page,
         pageSize,
-        sortBy
+        sortBy,
+        q
     };
 
     // Add optional parameters if provided
-    if (q) queryParams.q = q;
     if (sources?.length) queryParams.sources = sources.join(',');
     if (from) queryParams.from = from;
     if (to) queryParams.to = to;
